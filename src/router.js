@@ -15,11 +15,12 @@ router.patch("/owners/:idOwner", handler.editOwner)
 
 // Book API
 router.post("/owners/:idOwner/books", handler.createBook)
-router.get("/owners/:idOwner/books", handler.getAllBooks)
-router.get("/owners/:idOwner/books/:idBook", handler.getBookById)
-router.patch("/owners/:idOwner/books/:idBook", handler.editBook)
-router.put("/owners/:idOwner/books/:idBook", handler.editBookStatus)
-router.delete("/owners/:idOwner/books/:idBook", handler.removeBook)
+router.get("/owners/:idOwner/books", handler.getAllBooksByIdOwner)
+router.get("/books/:idBook", handler.getBookById)
+router.get("/books/", handler.getAllBooks)
+router.patch("/books/:idBook", handler.editBook)
+router.put("/books/:idBook", handler.editBookStatus)
+router.delete("/books/:idBook", handler.removeBook)
 
 
 // Error Middleware

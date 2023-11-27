@@ -32,7 +32,7 @@ const createOwner = async (req, res, next) => {
 const getAllOwners = async (req, res, next) => {
     try {
         const result = await query("SELECT * FROM owners")
-        return res.status(200).json({
+        res.status(200).json({
             data: result[0],
             errors: null
         })
@@ -50,7 +50,7 @@ const getOwnerById = async (req, res, next) => {
             throw new ResponseError(404, "Id Owner is not found.")
         }
         const data = result[0][0]
-        return res.status(200).json({
+        res.status(200).json({
             data,
             errors: null
         })
@@ -123,7 +123,7 @@ const createBook = async (req, res, next) => {
     }
 }
 
-const getAllBooks = async (req, res, next) => {
+const getAllBooksByIdOwner = async (req, res, next) => {
     try {
         const { idOwner } = req.params
     
@@ -133,7 +133,7 @@ const getAllBooks = async (req, res, next) => {
         }
 
         const result = await query("SELECT * FROM books WHERE id_owner = ?", idOwner)
-        return res.status(200).json({
+        res.status(200).json({
             data: result[0],
             errors: null
         })
@@ -144,18 +144,14 @@ const getAllBooks = async (req, res, next) => {
 
 const getBookById = async (req, res, next) => {
     try {
-        const { idOwner } = req.params
-    
-        const owner = await query("SELECT * FROM owners WHERE id = ?", idOwner)
-        if (owner[0].length === 0) {
-            throw new ResponseError(404, "Id Owner is not found.")
-        }
-
         const { idBook } = req.params
         const book = await query("SELECT * FROM books WHERE id = ?", idBook)
         if (book[0].length === 0) {
             throw new ResponseError(404, "Id Book is not found.")
         }
+
+        const owner = await query("SELECT * FROM owners WHERE id = ?", book[0][0].id_owner)
+        book[0][0].owner = owner[0][0]
 
         const data = book[0][0]
         res.status(200).json({
@@ -167,14 +163,29 @@ const getBookById = async (req, res, next) => {
     }
 }
 
+
+const getAllBooks = async (req, res, next) => {
+    try {
+        const books = await query("SELECT * FROM books")
+        await Promise.all(
+            books[0].map(async (book) => {
+              const owner = await query("SELECT * FROM owners WHERE id = ?", book.id_owner);
+              book.owner = owner[0][0]
+            })
+        )
+
+        res.status(200).json({
+            data: books[0],
+            errors: null
+        })
+    } catch (error) {
+        next(error)
+    }
+}
+
+
 const editBook = async (req, res, next) => {
     try {
-        const { idOwner } = req.params
-        const owner = await query("SELECT * FROM owners WHERE id = ?", idOwner)
-        if (owner[0].length === 0) {
-            throw new ResponseError(404, "Id Owner is not found.")
-        }
-
         const { idBook } = req.params
         const book = await query("SELECT * FROM books WHERE id = ?", idBook)
         if (book[0].length === 0) {
@@ -200,12 +211,6 @@ const editBook = async (req, res, next) => {
 
 const editBookStatus = async (req, res, next) => {
     try {
-        const { idOwner } = req.params  
-        const owner = await query("SELECT * FROM owners WHERE id = ?", idOwner)
-        if (owner[0].length === 0) {
-            throw new ResponseError(404, "Id Owner is not found.")
-        }
-
         const { idBook } = req.params
         const book = await query("SELECT * FROM books WHERE id = ?", idBook)
         if (book[0].length === 0) {
@@ -235,12 +240,6 @@ const editBookStatus = async (req, res, next) => {
 
 const removeBook = async (req, res, next) => {
     try {
-        const { idOwner } = req.params  
-        const owner = await query("SELECT * FROM owners WHERE id = ?", idOwner)
-        if (owner[0].length === 0) {
-            throw new ResponseError(404, "Id Owner is not found.")
-        }
-
         const { idBook } = req.params
         const book = await query("SELECT * FROM books WHERE id = ?", idBook)
         if (book[0].length === 0) {
@@ -265,9 +264,10 @@ module.exports = {
     getOwnerById,
     editOwner,
     createBook,
-    getAllBooks,
+    getAllBooksByIdOwner,
     getBookById,
+    getAllBooks,
     editBook,
     editBookStatus,
-    removeBook
+    removeBook,
 }
