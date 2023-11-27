@@ -503,7 +503,7 @@
 					"response": []
 				},
 				{
-					"name": "Get All Books Success",
+					"name": "Get All Books By Id Owner Success",
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
 					},
@@ -536,7 +536,7 @@
 					"response": []
 				},
 				{
-					"name": "Get All Books Fail - Id Owner is Not Found",
+					"name": "Get All Books By Id Owner Fail - Id Owner is Not Found",
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
 					},
@@ -586,49 +586,13 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:3000/owners/{{idOwner}}/books/{{idBook}}",
+							"raw": "http://localhost:3000/books/{{idBook}}",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
 							"port": "3000",
 							"path": [
-								"owners",
-								"{{idOwner}}",
-								"books",
-								"{{idBook}}"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Get Book Fail - Id Owner is Not Found",
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
-					"request": {
-						"method": "GET",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "http://localhost:3000/owners/salah/books/{{idBook}}",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "3000",
-							"path": [
-								"owners",
-								"salah",
 								"books",
 								"{{idBook}}"
 							]
@@ -654,17 +618,47 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:3000/owners/{{idOwner}}/books/salah",
+							"raw": "http://localhost:3000/books/salah",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
 							"port": "3000",
 							"path": [
-								"owners",
-								"{{idOwner}}",
 								"books",
 								"salah"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Books",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/books/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"books",
+								""
 							]
 						}
 					},
@@ -696,57 +690,13 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:3000/owners/{{idOwner}}/books/{{idBook}}",
+							"raw": "http://localhost:3000/books/{{idBook}}",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
 							"port": "3000",
 							"path": [
-								"owners",
-								"{{idOwner}}",
-								"books",
-								"{{idBook}}"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Update Fail - Id Owner is Not Found",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									""
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "PATCH",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"title\": \"Si Penerjang Badai Angin\",\r\n    \"author\": \"Penerjang Badai Asli Tidak Hoax\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "http://localhost:3000/owners/salah/books/{{idBook}}",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "3000",
-							"path": [
-								"owners",
-								"salah",
 								"books",
 								"{{idBook}}"
 							]
@@ -780,15 +730,13 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:3000/owners/{{idOwner}}/books/salah",
+							"raw": "http://localhost:3000/books/salah",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
 							"port": "3000",
 							"path": [
-								"owners",
-								"{{idOwner}}",
 								"books",
 								"salah"
 							]
@@ -822,15 +770,13 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:3000/owners/{{idOwner}}/books/{{idBook}}",
+							"raw": "http://localhost:3000/books/{{idBook}}",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
 							"port": "3000",
 							"path": [
-								"owners",
-								"{{idOwner}}",
 								"books",
 								"{{idBook}}"
 							]
@@ -864,63 +810,13 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:3000/owners/{{idOwner}}/books/{{idBook}}?status=returned",
+							"raw": "http://localhost:3000/books/{{idBook}}?status=returned",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
 							"port": "3000",
 							"path": [
-								"owners",
-								"{{idOwner}}",
-								"books",
-								"{{idBook}}"
-							],
-							"query": [
-								{
-									"key": "status",
-									"value": "returned"
-								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Update Status Fail - Id Owner is Not Found",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									""
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "PUT",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "http://localhost:3000/owners/salah/books/{{idBook}}?status=returned",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "3000",
-							"path": [
-								"owners",
-								"salah",
 								"books",
 								"{{idBook}}"
 							],
@@ -960,15 +856,13 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:3000/owners/{{idOwner}}/books/salah?status=returned",
+							"raw": "http://localhost:3000/books/salah?status=returned",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
 							"port": "3000",
 							"path": [
-								"owners",
-								"{{idOwner}}",
 								"books",
 								"salah"
 							],
@@ -1008,15 +902,13 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:3000/owners/{{idOwner}}/books/{{idBook}}?status=salah",
+							"raw": "http://localhost:3000/books/{{idBook}}?status=salah",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
 							"port": "3000",
 							"path": [
-								"owners",
-								"{{idOwner}}",
 								"books",
 								"{{idBook}}"
 							],
@@ -1036,15 +928,13 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:3000/owners/{{idOwner}}/books/{{idBook}}",
+							"raw": "http://localhost:3000/books/{{idBook}}",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
 							"port": "3000",
 							"path": [
-								"owners",
-								"{{idOwner}}",
 								"books",
 								"{{idBook}}"
 							]
@@ -1058,39 +948,15 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:3000/owners/{{idOwner}}/books/salah",
+							"raw": "http://localhost:3000/books/salah",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
 							"port": "3000",
 							"path": [
-								"owners",
-								"{{idOwner}}",
 								"books",
 								"salah"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Delete Fail - Id Owner is Not Found",
-					"request": {
-						"method": "DELETE",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:3000/owners/salah/books/{{idBook}}",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "3000",
-							"path": [
-								"owners",
-								"salah",
-								"books",
-								"{{idBook}}"
 							]
 						}
 					},
